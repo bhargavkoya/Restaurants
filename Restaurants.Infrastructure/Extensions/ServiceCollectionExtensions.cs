@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurants.Domain.Repositories;
+using Restaurants.Infrastructure.Repositories;
 using Restaurants.Infrastructure.Seeders;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ namespace Restaurants.Infrastructure.Extensions
             string connectionString = configuration.GetConnectionString("RestaurantsDb") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<Persistance.RestaurantsDbContext>(options=> options.UseSqlServer(connectionString));
             services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
+            services.AddScoped<IRestaurantsRepository, RestaurantsRepository>();
         }
     }
 }

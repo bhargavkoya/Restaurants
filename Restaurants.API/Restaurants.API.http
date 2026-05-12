@@ -3,3 +3,31 @@
 GET {{Restaurants.API_HostAddress}}/weatherforecast
 
 ###
+
+GET {{Restaurants.API_HostAddress}}/api/restaurants
+
+###
+
+POST {{Restaurants.API_HostAddress}}/api/restaurants
+Content-Type: application/json
+
+{
+  "Name":"Spicy Delights",
+  "Category" :"Fast Food",
+  "Description" :
+      "Spicy Delights, incorporated on December 12, 2007, operates and franchises Spicys restaurants.",
+  "ContactEmail" :"contact@spicydelights.com",
+  "ContactNumber": "555-123-4567",
+  "HasDelivery": true,
+  
+  "City" : "London",
+  "Street" : "Boots 193",
+  "PostalCode" : "W1F 8SR"
+}
+
+###
+
+@id=3
+GET {{Restaurants.API_HostAddress}}/api/restaurants/{{id}}
+
+###
