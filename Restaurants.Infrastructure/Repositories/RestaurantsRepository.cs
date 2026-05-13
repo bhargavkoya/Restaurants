@@ -29,5 +29,21 @@ namespace Restaurants.Infrastructure.Repositories
             await dbContext.SaveChangesAsync();
             return restaurant.Id;
         }
+
+        public Task<Restaurant?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Delete(Restaurant restaurant)
+        {
+            dbContext.Remove(restaurant);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task SaveChanges()
+        {
+            await dbContext.SaveChangesAsync();
+        }
     }
 }
