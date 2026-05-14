@@ -30,11 +30,6 @@ namespace Restaurants.Infrastructure.Repositories
             return restaurant.Id;
         }
 
-        public Task<Restaurant?> GetByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task Delete(Restaurant restaurant)
         {
             dbContext.Remove(restaurant);
