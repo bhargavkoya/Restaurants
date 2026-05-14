@@ -14,13 +14,13 @@ namespace Restaurants.Infrastructure.Repositories
     {
         public async Task<IEnumerable<Restaurant>> GetAllAsync()
         {
-            var restaurants = await dbContext.Restaurants.ToListAsync();
+            var restaurants = await dbContext.Restaurants.Include(d=> d.Dishes).ToListAsync();
             return restaurants;
         }
 
         public async Task<Restaurant?> GetByIdAsync(int id)
         {
-            return await dbContext.Restaurants.FirstOrDefaultAsync(r => r.Id == id);
+            return await dbContext.Restaurants.Include(d=> d.Dishes).FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task<int> Create(Restaurant restaurant)
