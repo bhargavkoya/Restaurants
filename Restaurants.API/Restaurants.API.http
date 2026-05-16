@@ -1,33 +1,131 @@
 ﻿@Restaurants.API_HostAddress = https://localhost:7270
+@host = https://localhost
+@port = 7270
+@token = CfDJ8JNLE7-DAkZCjCihCkpeOkUZrdseV-vteRpAc4-IZUswEz7hzelRAuBanB4u-sEIY4zQNNKWsiX61phjfrBqRsWhPz5i4LBQ75MNw2mRoj3fMbGSIL08pJoZFCUCKtP_NPfQvl7TOrWDmX6Xt91dP-EYZTt17mQUG0BvXHk6oE2mEUJolHHnFu2HZUWqPjnUi22jTiiHLQXd3i3e3rCXbwz-NtyaoKGTD38hrLXI4SwHiqQhdWEUcw2hxOW1aDGBdOLICmGTa82OJIV3M5Sz10WtRA7C5A5e6m6Uq3FhjuujC4Z_TCBlcKOMfolUo30XiJoOTh494RfxEUdFEdR0UOQpsSLy68t5Kx-CbuWTWymFVYXzLyJEG5iT2vlMNQS_hUJ3_GdYLG-Fo6ARgIEgvWwxqHJcLz_tn4x-TQxzy2M1F4fr2DE7kYtY3rSfisJsEXkGxvtkeBDY2N_Aa7941ZCh9BhuT8C7oRTIGrTk_9RtY_UCe571ugbmirEOcYAHSjOuC06q4kC25BH4I1tIOhTeTncGEebQdvFKepzXe-b2nGurS_tDZAy1ZvGku5BcZm6wgz7XcUVPKzmAfPSGCfICybSOpCd9kQLY-qbLq2aMgln1gtcV7e2wrLpcJ_KzR1Evt8Ycj_Jc576-1HWkWNRJMDnZK90H35cFWNphn_rOmS9BHo8es4j7ZwuaLn98yw
 
-GET {{Restaurants.API_HostAddress}}/weatherforecast
+GET {{Restaurants.API_HostAddress}}/api/restaurants?searchPhrase=&pageSize=5&pageNumber=1&sortBy=Name&sortDirection=Descending
+Authorization: Bearer {{token}}
 
 ###
 
-GET {{Restaurants.API_HostAddress}}/api/restaurants
+GET {{Restaurants.API_HostAddress}}/api/restaurants/3
+Authorization: Bearer {{token}}
+
+###
+
+GET {{Restaurants.API_HostAddress}}/api/restaurants/3/dishes
+Authorization: Bearer {{token}}
+
+###
+
+DELETE {{Restaurants.API_HostAddress}}/api/restaurants/3/dishes
+
+###
+
+GET {{Restaurants.API_HostAddress}}/api/restaurants/3/dishes/3
+
+
+###
+
+DELETE {{Restaurants.API_HostAddress}}/api/restaurants/1009
+Authorization: Bearer {{token}}
+
 
 ###
 
 POST {{Restaurants.API_HostAddress}}/api/restaurants
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "Name":"Spicy Delights",
-  "Category" :"Fast Food",
-  "Description" :
-      "Spicy Delights, incorporated on December 12, 2007, operates and franchises Spicys restaurants.",
-  "ContactEmail" :"contact@spicydelights.com",
-  "ContactNumber": "555-123-4567",
-  "HasDelivery": true,
-  
-  "City" : "London",
-  "Street" : "Boots 193",
-  "PostalCode" : "W1F 8SR"
+      "Name": "Owner2 restaurant2",
+      "Description": "A cozy restaurant serving a variety of delicious dishes.",
+      "Category": "Indian",
+      "HasDelivery": true,
+      "ContactEmail": "info@test.com",
+      "ContactNumber": "555-1234",
+      "City": "New York",
+      "Street": "123 Main Street",
+      "PostalCode": "10-010"
 }
 
 ###
 
-@id=3
-GET {{Restaurants.API_HostAddress}}/api/restaurants/{{id}}
+GET https://localhost:7005/api/restaurants/1009
+Authorization: Bearer {{token}}
+
+
+###
+
+
+PATCH {{Restaurants.API_HostAddress}}/api/restaurants/1009
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Name": "Updated name",
+  "Description": "This is a sample restaurant description.",
+  "HasDelivery": false
+}
+
+###
+
+POST {{Restaurants.API_HostAddress}}/api/restaurants/3/dishes
+Content-Type: application/json
+
+{
+  "Name": "Spaghetti Bolognese",
+  "Description": "Classic Italian pasta dish with rich meat sauce",
+  "Price": 12.99,
+  "KiloCalories": 750
+}
+
+###
+
+GET https://localhost:7005/api/restaurants/3/dishes/7
+
+
+
+###
+
+POST {{Restaurants.API_HostAddress}}/api/identity/register
+Content-Type: application/json
+
+{
+    "email": "owner2@test.com",
+    "password": "Password1!"
+}
+
+###
+
+POST {{Restaurants.API_HostAddress}}/api/identity/login
+Content-Type: application/json
+
+{
+    "email": "owner2@test.com",
+    "password": "Password1!"
+}
+###
+
+PATCH {{Restaurants.API_HostAddress}}/api/identity/user
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Nationality": "French",
+  "DateOfBirth": "2010-01-01"
+}
+
+###
+
+
+POST {{Restaurants.API_HostAddress}}/api/identity/userRole
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "UserEmail": "owner2@test.com",
+  "RoleName": "Owner"
+}
 
 ###
