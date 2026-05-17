@@ -1,23 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Restaurants.Infrastructure.Seeders;
 using Restaurants.Application.Restaurants;
-using Restaurants.Application.Restaurants.Dtos;
-using MediatR;
-using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
-using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 using Restaurants.Application.Restaurants.Commands.DeleteRestaurant;
 using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
+using Restaurants.Application.Restaurants.Dtos;
+using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
+using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
+using Restaurants.Domain.Constants;
+using Restaurants.Infrastructure.Authourization;
+using Restaurants.Infrastructure.Seeders;
 
 namespace Restaurants.API.Controllers
 {
 
     [ApiController]
     [Route("api/restaurants")]
+    [Authorize]
     public class RestaurantsController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
+        [AllowAnonymous]
+        //[Authorize(Policy = PolicyNames.CreatedAtleast2Restaurants)]
         public async Task<IActionResult> GetAll()
         {
             var restaurants = await mediator.Send(new GetAllRestaurantsQuery());
@@ -25,6 +31,7 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpGet("{id}")]
+        //[Authorize(Policy = PolicyNames.HasNationality)]
         public async Task<IActionResult> GetById(int id)
         {
             var restaurant = await mediator.Send(new GetRestaurantByIdQuery(id));
@@ -34,6 +41,7 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = UserRoles.Owner)]
         public async Task<IActionResult> CreateRestaurant([FromBody] CreateRestaurantCommand createRestaurantCommand)
         {
             int createdRestaurantId = await mediator.Send(createRestaurantCommand);
