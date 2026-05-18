@@ -24,9 +24,9 @@ namespace Restaurants.API.Controllers
         [HttpGet]
         [AllowAnonymous]
         //[Authorize(Policy = PolicyNames.CreatedAtleast2Restaurants)]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll([FromQuery] GetAllRestaurantsQuery query)
         {
-            var restaurants = await mediator.Send(new GetAllRestaurantsQuery());
+            var restaurants = await mediator.Send(query);
             return Ok(restaurants);
         }
 
