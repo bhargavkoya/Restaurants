@@ -1,7 +1,9 @@
 <Solution>
   <Project Path="Restaurants.API/Restaurants.API.csproj" />
+  <Project Path="Restaurants.APITests/Restaurants.APITests.csproj" Id="9902c063-0b5d-401e-84f3-1d5f38ea260d" />
   <Project Path="Restaurants.Application/Restaurants.Application.csproj" Id="f19d8a57-5192-4b60-ba6d-d8a7d77d6231" />
   <Project Path="Restaurants.ApplicationTests/Restaurants.ApplicationTests.csproj" Id="31641221-15f9-4a83-b720-9a6cf71fc07b" />
   <Project Path="Restaurants.Domain/Restaurants.Domain.csproj" Id="01646f68-c8a7-453b-8db6-bcd98f013273" />
   <Project Path="Restaurants.Infrastructure/Restaurants.Infrastructure.csproj" Id="920a22a1-410c-46bc-8a8e-982c059c4425" />
+  <Project Path="Restaurants.InfrastructureTests/Restaurants.InfrastructureTests.csproj" Id="3e245a7b-40ba-4790-9f32-d967b5637eb8" />
 </Solution>
