@@ -9,9 +9,11 @@ using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Authourization;
 using Restaurants.Infrastructure.Authourization.Requirements;
 using Restaurants.Infrastructure.Authourization.Services;
+using Restaurants.Infrastructure.Configuration;
 using Restaurants.Infrastructure.Persistance;
 using Restaurants.Infrastructure.Repositories;
 using Restaurants.Infrastructure.Seeders;
+using Restaurants.Infrastructure.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,7 @@ namespace Restaurants.Infrastructure.Extensions
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            string connectionString = configuration.GetConnectionString("RestaurantsDb") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            string connectionString = configuration.GetConnectionString("RestaurantsDb");
             
             services.AddDbContext<Persistance.RestaurantsDbContext>(options=> options.UseSqlServer(connectionString).EnableSensitiveDataLogging());
             services.AddIdentityApiEndpoints<User>()
@@ -47,6 +49,9 @@ namespace Restaurants.Infrastructure.Extensions
             services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
             services.AddScoped<IAuthorizationHandler, CreatedMultipleRestaurantsRequirementHandler>();
             services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
+
+            services.Configure<BlobStorageSettings>(configuration.GetSection("BlobStorage"));
+            services.AddScoped<IBlobStorageService, BlobStorageService>();
         }
     }
 }
