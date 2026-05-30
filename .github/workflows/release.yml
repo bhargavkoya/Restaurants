@@ -62,5 +62,5 @@ jobs:
         uses: Azure/webapps-deploy@v3.0.0
         id: deploy-to-webapp
         with:
-          app-name: 'restaurants-api1-prod'
+          app-name: 'restaurants-api-prod'
           publish-profile:  ${{ secrets.PUBLISH_PROFILE_PROD }}
